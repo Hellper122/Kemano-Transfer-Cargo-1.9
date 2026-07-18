@@ -632,7 +632,9 @@ tpm:
 ---
 
 Конфигурация
+
 Сервер
+
 listen.port uint16 51820 Порт UDP
 listen.address string 0.0.0.0 Адрес для привязки
 clients.db path — Путь к БД клиентов
@@ -650,3 +652,137 @@ performance.streams uint 8 Количество потоков
 performance.compression bool true Сжатие zstd
 performance.compression-level uint 3 Уровень сжатия (1–19)
 tpm.enabled bool false Использовать TPM
+
+Клиент
+
+Параметр Тип По умолчанию Описание
+server.ip string — IP сервера (или Cloudflare Edge)
+server.port uint16 51820 Порт
+profile string raw Профиль маскировки
+keys path — Путь к файлу ключей
+performance.streams uint 8 Количество потоков
+performance.compression bool true Сжатие zstd
+performance.compression-level uint 3 Уровень сжатия (1–19)
+tpm.enabled bool false Использовать TPM
+
+---
+
+Документация
+
+· Спецификация протокола (полная)
+· Криптография
+· Форматы пакетов
+· Профили маскировки
+· Обход белых списков
+· Развёртывание сервера
+· Безопасность
+· FAQ
+
+---
+
+Дорожная карта
+
+· Спецификация v1.0 (базовый CCLH)
+· Спецификация v1.5 (слепое рукопожатие)
+· Спецификация v1.9 (jumbo, BBR, маскировка, белые списки)
+· Ядро на Rust (ChaCha20, X25519, BLAKE3, zstd)
+· eBPF-фильтр для слепого сервера
+· Клиент Linux
+· Клиент Windows
+· Клиент macOS
+· Клиент Android
+· Клиент iOS
+· Интеграция Cloudflare Spectrum (автоматическая)
+· GUI-конфигуратор
+· Протокол v2.0 (постквантовая криптография)
+
+---
+
+Разработка
+
+Сборка из исходников
+
+```bash
+git clone https://github.com/yourname/kemano-transfer-cargo.git
+cd kemano-transfer-cargo
+
+# Зависимости
+make deps
+
+# Сборка
+make
+
+# Установка
+sudo make install
+```
+
+Запуск тестов
+
+```bash
+make test
+make test-integration
+make test-bench
+```
+
+Структура репозитория
+
+```
+kemano-transfer-cargo/
+├── docs/               # Документация
+│   ├── SPEC.md         # Полная спецификация
+│   ├── CRYPTO.md       # Криптография
+│   ├── PACKETS.md      # Форматы пакетов
+│   ├── MASKING.md      # Профили маскировки
+│   ├── WHITELIST.md    # Обход белых списков
+│   ├── DEPLOY.md       # Развёртывание
+│   ├── SECURITY.md     # Безопасность
+│   └── FAQ.md          # Частые вопросы
+├── src/                # Исходный код
+│   ├── core/           # Ядро протокола
+│   ├── crypto/         # Криптография
+│   ├── transport/      # UDP-транспорт
+│   ├── bbr/            # BBR-контроллер
+│   ├── masking/        # Маскировка
+│   └── tpm/            # TPM-интеграция
+├── ebpf/               # eBPF-фильтр
+├── tests/              # Тесты
+├── examples/           # Примеры конфигураций
+├── Makefile
+├── LICENSE
+└── README.md
+```
+---
+
+Лицензия
+
+AGPL-3.0-only — GNU Affero General Public License v3.0
+
+```
+Kemano Transfer Cargo (KTC) v1.9 — CCLH Protocol
+Copyright (C) 2026
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+```
+---
+
+Предупреждение
+
+Данное программное обеспечение предназначено для защиты приватности и обхода необоснованных технических ограничений. Использование в незаконных целях запрещено. Авторы не несут ответственности за неправомерное использование.
+
+Проверяйте местное законодательство перед использованием.
+
+---
+
+<p align="center">
+  <b>Kemano Transfer Cargo v1.9</b><br>
+  <sub>CCLH — Cipher-locked Cargo, Legend-handshake</sub><br>
+  <sub>Максимальная скорость. Полная невидимость. Обход белых списков.</sub>
+</p>
