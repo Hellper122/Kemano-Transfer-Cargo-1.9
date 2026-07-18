@@ -1,0 +1,14 @@
+# ktc-client.yaml
+server:
+  ip: 1.1.1.1         
+  port: 443
+  profile: http3       
+
+security:
+  tpm: true
+  device-binding: true
+
+performance:
+  streams: 8
+  compression: true
+  compression-level: 3
